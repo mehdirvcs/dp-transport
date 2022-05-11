@@ -9,6 +9,9 @@ const UserSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 50
     },
+    mobile: {
+        type: String,
+    },
     email: {
         type: String,
         required: [true, 'please provide email'],
@@ -18,12 +21,37 @@ const UserSchema = new mongoose.Schema({
         ],
         unique: true
     },
+    role: {
+        type: String,
+        enum: ['Admin', 'Consigner'],
+        default: 'Consigner'
+    },
+    address_1: {
+        type:String,
+    },
+    address_2: {
+        type:String,
+    },
+    city: {
+        type:mongoose.Types.ObjectId,
+        ref:'City',
+        required:[true, 'Please provide city']
+    },
+    gst: {
+        type: Number
+    },
+    active: {
+        type: Boolean
+    },
+    is_deleted: {
+        type: Boolean
+    },
     password: {
         type: String,
         required: [true, 'please provide password'],
         minlength: 6,
     },  
-})
+},  {timestamps:true})
 
 UserSchema.pre('save', async function(next){
     const salt = await bcrypt.genSalt(10)

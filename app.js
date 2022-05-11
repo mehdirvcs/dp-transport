@@ -21,7 +21,13 @@ const authenticateUser = require('./middleware/authentication')
 
 //routers
 const authRouter = require('./routes/auth')
-const jobsRouter = require('./routes/jobs')
+const productRouter = require('./routes/product')
+const branchRouter = require('./routes/branch')
+const cityRouter = require('./routes/city')
+const bookingRouter = require('./routes/booking')
+const enquiryRouter = require('./routes/enquiry')
+const quotationRouter = require('./routes/quotation')
+const userRouter = require('./routes/user')
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -46,10 +52,17 @@ app.get('/', (req, res) => {
 });
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
-
 // routes
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', authenticateUser, jobsRouter)
+app.use('/api/v1/bookings', bookingRouter)
+app.use('/api/v1/products', productRouter)
+app.use('/api/v1/quotations', quotationRouter)
+app.use('/api/v1/city', cityRouter)
+app.use('/api/v1/customer', userRouter)
+app.use('/api/v1/branch', branchRouter)
+app.use('/api/v1/enquiry', enquiryRouter)
+// app.use('/api/v1/customer', customerRouter)
+// app.use('/api/v1/', authenticateUser, jobsRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
